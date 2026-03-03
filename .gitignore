@@ -1,0 +1,27 @@
+# Flutter/Dart
+.dart_tool/
+.packages
+build/
+*.iml
+.idea/
+.vscode/
+*.lock
+
+# Android
+android/.gradle/
+android/local.properties
+android/app/debug/
+android/app/profile/
+android/app/release/
+**/GeneratedPluginRegistrant.*
+
+# iOS (not targeted but just in case)
+ios/Flutter/
+ios/Pods/
+ios/.symlinks/
+
+# Miscellaneous
+*.log
+*.pyc
+.DS_Store
+*.swp
