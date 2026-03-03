@@ -27,6 +27,9 @@ jobs:
       - name: Get dependencies
         run: flutter pub get
 
+      - name: Accept Android licenses
+        run: yes | flutter doctor --android-licenses || true
+
       - name: Analyze
         run: flutter analyze || true
 
