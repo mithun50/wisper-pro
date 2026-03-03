@@ -4,6 +4,10 @@ import '../models/transcription_segment.dart';
 import '../models/whisper_model_info.dart';
 
 class WhisperService {
+  static final WhisperService _instance = WhisperService._();
+  factory WhisperService() => _instance;
+  WhisperService._();
+
   Whisper? _whisper;
   String? _loadedModel;
 

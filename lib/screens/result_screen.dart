@@ -46,10 +46,22 @@ class ResultScreen extends StatelessWidget {
               );
             },
           ),
-          IconButton(
-            icon: const Icon(Icons.share),
-            tooltip: 'Share SRT',
-            onPressed: () => FileService.shareSrt(srtPath),
+          Builder(
+            builder: (ctx) => IconButton(
+              icon: const Icon(Icons.share),
+              tooltip: 'Share SRT',
+              onPressed: () async {
+                try {
+                  await FileService.shareSrt(srtPath);
+                } catch (e) {
+                  if (ctx.mounted) {
+                    ScaffoldMessenger.of(ctx).showSnackBar(
+                      SnackBar(content: Text('Share failed: $e')),
+                    );
+                  }
+                }
+              },
+            ),
           ),
         ],
       ),

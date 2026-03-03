@@ -21,8 +21,8 @@ class AudioService {
     }
 
     final command = AppConstants.ffmpegCommand
-        .replaceAll('{input}', videoPath)
-        .replaceAll('{output}', outputPath);
+        .replaceAll('{input}', "'$videoPath'")
+        .replaceAll('{output}', "'$outputPath'");
 
     final session = await FFmpegKit.execute(command);
     final returnCode = await session.getReturnCode();

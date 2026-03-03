@@ -1,3 +1,4 @@
+import 'package:ffmpeg_kit_flutter_new/ffmpeg_kit.dart';
 import 'package:flutter/material.dart';
 
 import '../models/transcription_segment.dart';
@@ -36,6 +37,7 @@ class ProcessingScreen extends StatefulWidget {
 class _ProcessingScreenState extends State<ProcessingScreen> {
   _ProcessingStage _currentStage = _ProcessingStage.extractAudio;
   String? _errorMessage;
+  bool _cancelled = false;
   final _whisperService = WhisperService();
 
   static const _stageLabels = {
@@ -58,26 +60,41 @@ class _ProcessingScreenState extends State<ProcessingScreen> {
     _runPipeline();
   }
 
+  @override
+  void dispose() {
+    _cancelled = true;
+    FFmpegKit.cancel();
+    super.dispose();
+  }
+
+  void _updateStage(_ProcessingStage stage) {
+    if (!mounted || _cancelled) return;
+    setState(() => _currentStage = stage);
+  }
+
   Future<void> _runPipeline() async {
     try {
       // Stage 1: Extract audio
-      setState(() => _currentStage = _ProcessingStage.extractAudio);
+      _updateStage(_ProcessingStage.extractAudio);
       final audioPath = await AudioService.extractAudio(widget.videoPath);
+      if (_cancelled) return;
 
       // Stage 2: Init model
-      setState(() => _currentStage = _ProcessingStage.initModel);
+      _updateStage(_ProcessingStage.initModel);
       await _whisperService.initModel(widget.modelInfo);
+      if (_cancelled) return;
 
       // Stage 3: Transcribe
-      setState(() => _currentStage = _ProcessingStage.transcribe);
+      _updateStage(_ProcessingStage.transcribe);
       final List<TranscriptionSegment> segments =
           await _whisperService.transcribe(
         audioPath: audioPath,
         language: widget.language,
       );
+      if (_cancelled) return;
 
       // Stage 4: Generate SRT
-      setState(() => _currentStage = _ProcessingStage.generateSrt);
+      _updateStage(_ProcessingStage.generateSrt);
       final srtContent = SrtService.generate(segments);
       final srtPath = await FileService.saveSrt(
         srtContent: srtContent,
@@ -113,11 +130,25 @@ class _ProcessingScreenState extends State<ProcessingScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return Scaffold(
-      appBar: AppBar(title: const Text('Processing')),
-      body: Padding(
-        padding: const EdgeInsets.all(24),
-        child: _errorMessage != null ? _buildError(theme) : _buildProgress(theme),
+    return PopScope(
+      canPop: _errorMessage != null,
+      onPopInvokedWithResult: (didPop, _) {
+        if (!didPop) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Processing in progress...')),
+          );
+        }
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Processing'),
+          automaticallyImplyLeading: _errorMessage != null,
+        ),
+        body: Padding(
+          padding: const EdgeInsets.all(24),
+          child:
+              _errorMessage != null ? _buildError(theme) : _buildProgress(theme),
+        ),
       ),
     );
   }
