@@ -1,0 +1,22 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Solid deep purple background -->
+    <path
+        android:fillColor="#1A0A2E"
+        android:pathData="M0,0 L108,0 L108,108 L0,108 Z" />
+
+    <!-- Subtle gradient overlay circle -->
+    <path
+        android:fillColor="#2D1458"
+        android:pathData="M54,54 m-48,0 a48,48 0,1 1,96 0 a48,48 0,1 1,-96 0" />
+
+    <!-- Inner glow -->
+    <path
+        android:fillColor="#3A1A6E"
+        android:pathData="M54,54 m-32,0 a32,32 0,1 1,64 0 a32,32 0,1 1,-64 0" />
+
+</vector>

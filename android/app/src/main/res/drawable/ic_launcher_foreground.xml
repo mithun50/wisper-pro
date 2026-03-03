@@ -1,0 +1,53 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Audio waveform bars - center group -->
+    <!-- Bar 1 (left) -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M28,52 L28,56 Q28,58 30,58 L30,58 Q32,58 32,56 L32,52 Q32,50 30,50 L30,50 Q28,50 28,52 Z" />
+
+    <!-- Bar 2 -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M36,46 L36,62 Q36,64 38,64 L38,64 Q40,64 40,62 L40,46 Q40,44 38,44 L38,44 Q36,44 36,46 Z" />
+
+    <!-- Bar 3 (center-left, tall) -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M44,38 L44,70 Q44,72 46,72 L46,72 Q48,72 48,70 L48,38 Q48,36 46,36 L46,36 Q44,36 44,38 Z" />
+
+    <!-- Bar 4 (center, tallest) -->
+    <path
+        android:fillColor="#E0B0FF"
+        android:pathData="M52,32 L52,76 Q52,78 54,78 L54,78 Q56,78 56,76 L56,32 Q56,30 54,30 L54,30 Q52,30 52,32 Z" />
+
+    <!-- Bar 5 (center-right, tall) -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M60,38 L60,70 Q60,72 62,72 L62,72 Q64,72 64,70 L64,38 Q64,36 62,36 L62,36 Q60,36 60,38 Z" />
+
+    <!-- Bar 6 -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M68,46 L68,62 Q68,64 70,64 L70,64 Q72,64 72,62 L72,46 Q72,44 70,44 L70,44 Q68,44 68,46 Z" />
+
+    <!-- Bar 7 (right) -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M76,52 L76,56 Q76,58 78,58 L78,58 Q80,58 80,56 L80,52 Q80,50 78,50 L78,50 Q76,50 76,52 Z" />
+
+    <!-- Subtitle bar at bottom -->
+    <path
+        android:fillColor="#E0B0FF"
+        android:pathData="M30,80 L78,80 Q80,80 80,82 L80,84 Q80,86 78,86 L30,86 Q28,86 28,84 L28,82 Q28,80 30,80 Z" />
+
+    <!-- Small subtitle accent bar -->
+    <path
+        android:fillColor="#CE93D8"
+        android:pathData="M38,88 L70,88 Q72,88 72,90 L72,91 Q72,93 70,93 L38,93 Q36,93 36,91 L36,90 Q36,88 38,88 Z" />
+
+</vector>
