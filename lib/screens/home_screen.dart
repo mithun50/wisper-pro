@@ -1,7 +1,4 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 import '../constants/app_constants.dart';
 import '../constants/whisper_languages.dart';
@@ -23,16 +20,20 @@ class _HomeScreenState extends State<HomeScreen> {
   String _selectedLanguage = AppConstants.defaultLanguage;
 
   Future<void> _pickVideo() async {
-    if (Platform.isAndroid) {
-      await [Permission.videos, Permission.storage].request();
-    }
-
-    final path = await FileService.pickVideo();
-    if (path != null) {
-      setState(() {
-        _selectedVideoPath = path;
-        _videoFileName = path.split('/').last;
-      });
+    try {
+      final path = await FileService.pickVideo();
+      if (path != null) {
+        setState(() {
+          _selectedVideoPath = path;
+          _videoFileName = path.split('/').last;
+        });
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Failed to pick video: $e')),
+        );
+      }
     }
   }
 
